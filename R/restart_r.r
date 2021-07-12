@@ -6,14 +6,14 @@
 reg_rrr <- function() makeActiveBinding("rrr", function() {
     system("R"); 
     path_prof <- file.path(
-        usethis:::scoped_path_r('user'), 
+        usethis:::scoped_path_r('project'), 
         ".Rprofile"
     )
     if(file.exists(path_prof)){
         source(path_prof, local = .GlobalEnv)
     } else{
         path_prof <- file.path(
-            usethis:::scoped_path_r('project'), 
+            usethis:::scoped_path_r('user'), 
             ".Rprofile"
             )
         if(file.exists(path_prof)){

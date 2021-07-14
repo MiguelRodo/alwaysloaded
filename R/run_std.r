@@ -4,6 +4,11 @@
 run_std <- function(env = rlang::caller_env()) {
   add_options_vsc()
 
+  # set repo
+  options(
+    repos = c(CRAN = "http://cran.rstudio.com/")
+  )
+
   # open directories
   assign(
     "od",

@@ -6,7 +6,7 @@ run_std <- function(env = rlang::caller_env()) {
 
   # set repo
   options(
-    repos = c(CRAN = "http://cran.rstudio.com/")
+    repos = c(CRAN = "https://cran.mirror.ac.za/")
   )
 
   # open directories
@@ -18,8 +18,15 @@ run_std <- function(env = rlang::caller_env()) {
 
   # open directories
   assign(
-    "rv",
-    value = rv,
+    "r_r",
+    value = r_r,
+    envir = env
+  )
+
+  # open directories
+  assign(
+    "r_pst",
+    value = r_pst,
     envir = env
   )
 
@@ -45,8 +52,8 @@ run_std <- function(env = rlang::caller_env()) {
   )
   # open directories
   assign(
-    "dt",
-    value = dt,
+    ".dt",
+    value = .dt,
     envir = env
   )
   # open directories
@@ -58,8 +65,8 @@ run_std <- function(env = rlang::caller_env()) {
 
   # open directories
   assign(
-    "dbi",
-    value = dbi,
+    "bi",
+    value = bi,
     envir = env
   )
 }

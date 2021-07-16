@@ -98,6 +98,16 @@ r_cv <- function(version = NULL) {
 
 }
 
+r_v <- function(){
+  x <- sessionInfo()
+  version <- gsub("R version ", "", x$R.version$version.string)
+  version <- stringr::str_sub(
+    version,
+    end = stringr::str_locate(version, "\\s")[, 1][[1]] - 1
+  )
+  cat(version)
+}
+
 #' @title Create text for changing version in PowerShell
 r_pst <- function(version = NULL) {
 

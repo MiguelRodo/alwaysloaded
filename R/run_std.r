@@ -30,6 +30,12 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  assign(
+    "r_v",
+    value = r_v,
+    envir = env
+  )
+
   # open directories
   assign(
     "ob",

@@ -16,6 +16,13 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  # open directories
+  assign(
+    "os",
+    value = os,
+    envir = env
+  )
+
   # print powershell text
   assign(
     "r_pst",

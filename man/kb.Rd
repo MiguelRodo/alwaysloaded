@@ -4,7 +4,7 @@
 \alias{kb}
 \title{Knit book}
 \usage{
-kb(input = NULL, exact = FALSE, inc_non_work = FALSE)
+kb(input = NULL, exact = FALSE, inc_ext = FALSE)
 }
 \arguments{
 \item{input}{character vector. If not \code{NULL}, then files
@@ -17,8 +17,8 @@ Default is \code{NULL}.}
 If \code{FALSE}, then partial matches for \code{input} are accepted.
 Default is \code{FALSE}.}
 
-\item{inc_non_work}{logical.
-If \code{TRUE}, then files in \code{non_work/} are included.
+\item{inc_ext}{logical.
+If \code{TRUE}, then files in \code{ext/} are included.
 Default is \code{FALSE}.}
 }
 \description{

@@ -8,15 +8,15 @@
 #' @param exact logical.
 #' If \code{FALSE}, then partial matches for \code{input} are accepted.
 #' Default is \code{FALSE}.
-#' @param inc_non_work logical.
-#' If \code{TRUE}, then files in \code{non_work/} are included.
+#' @param inc_ext logical.
+#' If \code{TRUE}, then files in \code{ext/} are included.
 #' Default is \code{FALSE}.
 #' @export
 kb <- function(input = NULL,
-                exact = FALSE,
-                inc_non_work = FALSE) {
+               exact = FALSE,
+               inc_ext = FALSE) {
 
-  alwaysloaded:::adj_yaml_non_work(inc_non_work = inc_non_work)
+  alwaysloaded:::adj_yaml(inc_ext = inc_ext)
 
   if (is.null(input)) {
     message("render beginning")
@@ -60,51 +60,71 @@ kb <- function(input = NULL,
   invisible(TRUE)
 }
 
+kbt <- function() kb(inc_ext = TRUE)
+
 #' @title Include or exclude non-work Rmds from _bookdown.yml
-adj_yaml_non_work <- function(inc_non_work = FALSE) {
-
-  # include or exclude non-work Rmds
-  # --------------------
-
-  rmd_vec_non_work <- c(
-    "the_message.Rmd",
-    "theology.Rmd",
-    "theology-relationships.Rmd",
-    "theology-the_church.Rmd",
-    "theology-the_cross.Rmd",
-    "management.Rmd"
-  )
-  rmd_vec_non_work <- paste0(
-    "non_work/",
-    rmd_vec_non_work
-  )
+adj_yaml <- function(inc_ext = FALSE) {
 
   yml <- yaml::read_yaml("_bookdown.yml")
+  rmd_vec <- yml$rmd_files
+  rmd_vec <- rmd_vec[!grepl("^ext/", rmd_vec)]
+  rmd_vec_add <- setdiff(rmd_vec,
+                         list.files(here::here(), ".Rmd$"))
+  rmd_vec <- c(rmd_vec,
+               rmd_vec_add)
 
-  if (inc_non_work) {
-    rmd_vec <- yml$rmd_files
-    paper_vec <- rmd_vec[grepl("^zz-", rmd_vec)]
-    non_paper_vec <- rmd_vec[!grepl("^zz-", rmd_vec)]
-    paper_vec_non_work <- rmd_vec_non_work[grepl(
-      "^non-work/zz-",
-      rmd_vec_non_work
-    )]
-    non_paper_vec_non_work <- rmd_vec_non_work[!grepl(
-      "^non-work/zz-",
-      rmd_vec_non_work
-    )]
-    rmd_vec <- c(
-      non_paper_vec,
-      non_paper_vec_non_work,
-      paper_vec,
-      paper_vec_non_work
+  rmd_vec_ext <- yaml::read_yaml("ext_rmd_order.yml")$rmd_files
+  rmd_vec_ext <- paste0(
+    "ext/",
+    c(
+      rmd_vec_ext,
+      list.files(file.path(here::here(), "ext"),
+                 pattern = ".Rmd$")
     )
-    yml$rmd_files <- unique(rmd_vec)
-  } else {
-    rmd_vec <- yml$rmd_files
-    rmd_vec <- rmd_vec[!grepl("^non_work", rmd_vec)]
-    yml$rmd_files <- unique(rmd_vec)
+  )
+  if (identical("ext/", rmd_vec_ext)) {
+    rmd_vec_ext <- NULL
   }
+
+  paper_vec <- rmd_vec[grepl("^zz-", rmd_vec)]
+  topic_vec <- setdiff(rmd_vec, paper_vec)
+  bib_vec <- paper_vec[grepl("zz-zz-", paper_vec)]
+  paper_vec <- setdiff(paper_vec, bib_vec)
+  meetings_vec <- topic_vec[grepl("zx-", topic_vec)]
+  topic_vec <- setdiff(topic_vec, meetings_vec)
+
+
+  if (inc_ext) {
+
+    paper_vec_ext <- rmd_vec_ext[grepl("^ext/zz-", rmd_vec_ext)]
+    topic_vec_ext <- setdiff(rmd_vec_ext, paper_vec_ext)
+    bib_vec_ext <- paper_vec_ext[grepl("ext/zz-zz-", paper_vec_ext)]
+    meetings_vec_ext <- topic_vec_ext[grepl("ext/zx-", topic_vec_ext)]
+    paper_vec_ext <- setdiff(paper_vec_ext, bib_vec)
+
+    rmd_vec <- c(
+      topic_vec,
+      topic_vec_ext,
+      meetings_vec,
+      meetings_vec_ext,
+      paper_vec,
+      paper_vec_ext,
+      bib_vec,
+      bib_vec_ext
+    )
+
+  } else {
+
+    rmd_vec <- c(
+      topic_vec,
+      meetings_vec,
+      paper_vec,
+      bib_vec
+    )
+
+  }
+
+  yml$rmd_files <- unique(rmd_vec)
 
   yaml::write_yaml(
     yml,
@@ -113,7 +133,7 @@ adj_yaml_non_work <- function(inc_non_work = FALSE) {
 }
 
 #' @title Open book
-#' 
+#'
 #' @export
 ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
   if (!is.null(chapter)) {

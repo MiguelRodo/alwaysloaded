@@ -50,6 +50,13 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  # open directories
+  assign(
+    "kbt",
+    value = kbt,
+    envir = env
+  )
+
   # add devtools::document
   assign(
     "dd",

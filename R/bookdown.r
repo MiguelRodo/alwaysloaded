@@ -73,19 +73,6 @@ adj_yaml <- function(inc_ext = FALSE) {
   rmd_vec <- c(rmd_vec,
                rmd_vec_add)
 
-  rmd_vec_ext <- yaml::read_yaml("ext_rmd_order.yml")$rmd_files
-  rmd_vec_ext <- paste0(
-    "ext/",
-    c(
-      rmd_vec_ext,
-      list.files(file.path(here::here(), "ext"),
-                 pattern = ".Rmd$")
-    )
-  )
-  if (identical("ext/", rmd_vec_ext)) {
-    rmd_vec_ext <- NULL
-  }
-
   paper_vec <- rmd_vec[grepl("^zz-", rmd_vec)]
   topic_vec <- setdiff(rmd_vec, paper_vec)
   bib_vec <- paper_vec[grepl("zz-zz-", paper_vec)]
@@ -95,6 +82,19 @@ adj_yaml <- function(inc_ext = FALSE) {
 
 
   if (inc_ext) {
+
+    rmd_vec_ext <- yaml::read_yaml("ext_rmd_order.yml")$rmd_files
+    rmd_vec_ext <- paste0(
+      "ext/",
+      c(
+        rmd_vec_ext,
+        list.files(file.path(here::here(), "ext"),
+                   pattern = ".Rmd$")
+      )
+    )
+    if (identical("ext/", rmd_vec_ext)) {
+      rmd_vec_ext <- NULL
+    }
 
     paper_vec_ext <- rmd_vec_ext[grepl("^ext/zz-", rmd_vec_ext)]
     topic_vec_ext <- setdiff(rmd_vec_ext, paper_vec_ext)

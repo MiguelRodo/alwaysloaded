@@ -124,6 +124,8 @@ adj_yaml <- function(inc_ext = FALSE) {
 
   }
 
+  rmd_vec <- rmd_vec[file.exists(rmd_vec)]
+
   yml$rmd_files <- unique(rmd_vec)
 
   yaml::write_yaml(

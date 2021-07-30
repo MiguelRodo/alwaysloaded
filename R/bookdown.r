@@ -68,8 +68,8 @@ adj_yaml <- function(inc_ext = FALSE) {
   yml <- yaml::read_yaml("_bookdown.yml")
   rmd_vec <- yml$rmd_files
   rmd_vec <- rmd_vec[!grepl("^ext/", rmd_vec)]
-  rmd_vec_add <- setdiff(rmd_vec,
-                         list.files(here::here(), ".Rmd$"))
+  rmd_vec_add <- setdiff(list.files(here::here(), ".Rmd$"),
+                         rmd_vec)
   rmd_vec <- c(rmd_vec,
                rmd_vec_add)
 

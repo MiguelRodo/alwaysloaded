@@ -4,7 +4,7 @@
 \alias{kb}
 \title{Knit book}
 \usage{
-kb(input = NULL, exact = FALSE, inc_ext = FALSE)
+kb(input = NULL, exact = FALSE, inc_ext = FALSE, add_missing = TRUE)
 }
 \arguments{
 \item{input}{character vector. If not \code{NULL}, then files
@@ -20,6 +20,14 @@ Default is \code{FALSE}.}
 \item{inc_ext}{logical.
 If \code{TRUE}, then files in \code{ext/} are included.
 Default is \code{FALSE}.}
+
+\item{add_missing}{logical. If \code{TRUE}, then any rmd's that
+are not in either \code{_bookdown.yaml} or
+\code{ext_rmd_order.yaml} are included (though those
+in \code{ext_rmd_order.yml} are included only
+if \code{inc_ext == TRUE}).
+Otherwise no rmd's not explicitly included are included.
+Default is \code{TRUE}.}
 }
 \description{
 Knit book

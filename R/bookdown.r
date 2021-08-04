@@ -11,12 +11,23 @@
 #' @param inc_ext logical.
 #' If \code{TRUE}, then files in \code{ext/} are included.
 #' Default is \code{FALSE}.
+#' @param add_missing logical. If \code{TRUE}, then any rmd's that
+#' are not in either \code{_bookdown.yaml} or
+#' \code{ext_rmd_order.yaml} are included (though those
+#' in \code{ext_rmd_order.yml} are included only
+#' if \code{inc_ext == TRUE}).
+#' Otherwise no rmd's not explicitly included are included.
+#' Default is \code{TRUE}.
+#'
 #' @export
 kb <- function(input = NULL,
                exact = FALSE,
-               inc_ext = FALSE) {
+               inc_ext = FALSE,
+               add_missing = TRUE) {
 
-  alwaysloaded:::adj_yaml(inc_ext = inc_ext)
+  alwaysloaded:::adj_yaml(inc_ext = inc_ext,
+                          add_missing = add_missing)
+
 
   if (is.null(input)) {
     message("render beginning")
@@ -24,7 +35,6 @@ kb <- function(input = NULL,
     suppressMessages(
       bookdown::render_book(quiet = TRUE)
     )
-    sink()
     message("render complete")
   } else {
     yml <- yaml::read_yaml("_bookdown.yml")
@@ -52,26 +62,30 @@ kb <- function(input = NULL,
       quiet = TRUE,
       preview = TRUE
     ))
-    sink()
+
     message("render complete")
   }
+
+  sink(NULL)
 
   ob()
   invisible(TRUE)
 }
 
-kbt <- function() kb(inc_ext = TRUE)
+kbt <- function(add_missing = TRUE) kb(inc_ext = TRUE,
+                                       add_missing = add_missing)
 
 #' @title Include or exclude non-work Rmds from _bookdown.yml
-adj_yaml <- function(inc_ext = FALSE) {
+adj_yaml <- function(inc_ext = FALSE, add_missing) {
 
   yml <- yaml::read_yaml("_bookdown.yml")
   rmd_vec <- yml$rmd_files
   rmd_vec <- rmd_vec[!grepl("^ext/", rmd_vec)]
-  rmd_vec_add <- setdiff(list.files(here::here(), ".Rmd$"),
-                         rmd_vec)
+  rmd_vec_add <- switch(add_missing,
+                        setdiff(list.files(here::here(), ".Rmd$"), rmd_vec))
   rmd_vec <- c(rmd_vec,
                rmd_vec_add)
+  rmd_vec <- rmd_vec[rmd_vec != ""]
 
   paper_vec <- rmd_vec[grepl("^zz-", rmd_vec)]
   topic_vec <- setdiff(rmd_vec, paper_vec)
@@ -84,45 +98,47 @@ adj_yaml <- function(inc_ext = FALSE) {
   if (inc_ext) {
 
     rmd_vec_ext <- yaml::read_yaml("ext_rmd_order.yml")$rmd_files
-    rmd_vec_ext <- paste0(
-      "ext/",
-      c(
-        rmd_vec_ext,
-        list.files(file.path(here::here(), "ext"),
-                   pattern = ".Rmd$")
+    rmd_vec_ext_add <- switch(add_missing,
+                              setdiff(list.files(here::here("ext"), ".Rmd$"),
+                                      rmd_vec_ext))
+    rmd_vec_ext <- c(rmd_vec_ext, rmd_vec_ext_add)
+    rmd_vec_ext <- rmd_vec_ext[rmd_vec_ext != ""]
+    rmd_vec_ext <- switch(length(rmd_vec_ext) > 0,
+                          paste0("ext/", rmd_vec_ext))
+
+    if(!is.null(rmd_vec_ext)) {
+      paper_vec_ext <- rmd_vec_ext[grepl("^ext/zz-", rmd_vec_ext)]
+      topic_vec_ext <- setdiff(rmd_vec_ext, paper_vec_ext)
+      bib_vec_ext <- paper_vec_ext[grepl("ext/zz-zz-", paper_vec_ext)]
+      meetings_vec_ext <- topic_vec_ext[grepl("ext/zx-", topic_vec_ext)]
+      paper_vec_ext <- setdiff(paper_vec_ext, bib_vec)
+
+      topic_vec <- c(
+        topic_vec,
+        topic_vec_ext
+        )
+      meetings_vec <- c(
+        meetings_vec,
+        meetings_vec_ext
       )
-    )
-    if (identical("ext/", rmd_vec_ext)) {
-      rmd_vec_ext <- NULL
+      paper_vec <- c(
+        paper_vec,
+        paper_vec_ext
+      )
+      bib_vec <- c(
+        bib_vec,
+        bib_vec_ext
+      )
     }
 
-    paper_vec_ext <- rmd_vec_ext[grepl("^ext/zz-", rmd_vec_ext)]
-    topic_vec_ext <- setdiff(rmd_vec_ext, paper_vec_ext)
-    bib_vec_ext <- paper_vec_ext[grepl("ext/zz-zz-", paper_vec_ext)]
-    meetings_vec_ext <- topic_vec_ext[grepl("ext/zx-", topic_vec_ext)]
-    paper_vec_ext <- setdiff(paper_vec_ext, bib_vec)
-
-    rmd_vec <- c(
-      topic_vec,
-      topic_vec_ext,
-      meetings_vec,
-      meetings_vec_ext,
-      paper_vec,
-      paper_vec_ext,
-      bib_vec,
-      bib_vec_ext
-    )
-
-  } else {
-
-    rmd_vec <- c(
-      topic_vec,
-      meetings_vec,
-      paper_vec,
-      bib_vec
-    )
-
   }
+
+  rmd_vec <- c(
+    topic_vec,
+    meetings_vec,
+    paper_vec,
+    bib_vec
+  )
 
   rmd_vec <- rmd_vec[file.exists(rmd_vec)]
 

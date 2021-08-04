@@ -4,7 +4,7 @@
 \alias{adj_yaml}
 \title{Include or exclude non-work Rmds from _bookdown.yml}
 \usage{
-adj_yaml(inc_ext = FALSE)
+adj_yaml(inc_ext = FALSE, add_missing)
 }
 \description{
 Include or exclude non-work Rmds from _bookdown.yml

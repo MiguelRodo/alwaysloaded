@@ -23,7 +23,7 @@
 kb <- function(input = NULL,
                exact = FALSE,
                inc_ext = FALSE,
-               add_missing = TRUE) {
+               add_missing = FALSE) {
 
   alwaysloaded:::adj_yaml(inc_ext = inc_ext,
                           add_missing = add_missing)
@@ -66,13 +66,18 @@ kb <- function(input = NULL,
     message("render complete")
   }
 
-  sink(NULL)
+  suppressWarnings(sink(NULL))
+  suppressWarnings(sink(NULL))
 
   ob()
+
+  suppressWarnings(sink(NULL))
+  suppressWarnings(sink(NULL))
+
   invisible(TRUE)
 }
 
-kbt <- function(add_missing = TRUE) kb(inc_ext = TRUE,
+kbt <- function(add_missing = FALSE) kb(inc_ext = TRUE,
                                        add_missing = add_missing)
 
 #' @title Include or exclude non-work Rmds from _bookdown.yml
@@ -81,11 +86,24 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
   yml <- yaml::read_yaml("_bookdown.yml")
   rmd_vec <- yml$rmd_files
   rmd_vec <- rmd_vec[!grepl("^ext/", rmd_vec)]
-  rmd_vec_add <- switch(add_missing,
-                        setdiff(list.files(here::here(), ".Rmd$"), rmd_vec))
-  rmd_vec <- c(rmd_vec,
-               rmd_vec_add)
+
   rmd_vec <- rmd_vec[rmd_vec != ""]
+  rmd_vec <- rmd_vec[file.exists(rmd_vec)]
+  if (add_missing) {
+    rmd_vec_add <- setdiff(list.files(here::here(), ".Rmd$"), rmd_vec)
+    rmd_vec_add <- rmd_vec_add[rmd_vec_add != ""]
+    rmd_vec_add <- rmd_vec_add[file.exists(rmd_vec_add)]
+    if (length(rmd_vec_add) > 0) {
+      rmd_vec <- unique(
+        c(rdm_vec, rmd_vec_add)
+      )
+      yml$rmd_files <- rmd_vec
+      yaml::write_yaml(
+        yml,
+        file = "_bookdown.yml"
+      )
+    }
+  }
 
   paper_vec <- rmd_vec[grepl("^zz-", rmd_vec)]
   topic_vec <- setdiff(rmd_vec, paper_vec)
@@ -97,16 +115,37 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
 
   if (inc_ext) {
 
-    rmd_vec_ext <- yaml::read_yaml("ext_rmd_order.yml")$rmd_files
-    rmd_vec_ext_add <- switch(add_missing,
-                              setdiff(list.files(here::here("ext"), ".Rmd$"),
-                                      rmd_vec_ext))
-    rmd_vec_ext <- c(rmd_vec_ext, rmd_vec_ext_add)
-    rmd_vec_ext <- rmd_vec_ext[rmd_vec_ext != ""]
-    rmd_vec_ext <- switch(length(rmd_vec_ext) > 0,
-                          paste0("ext/", rmd_vec_ext))
+    yml_ext <- yaml::read_yaml("ext_rmd_order.yml")
+    rmd_vec_ext <- yml_ext$rmd_files
+    rmd_vec_ext <- rmd_vec_ext[grepl("^ext/", rmd_vec_ext)]
+    rmd_vec_ext <- rmd_vec_ext[rmd_vec != ""]
+    rmd_vec_ext <- rmd_vec_ext[file.exists(rmd_vec_ext)]
+    yml_ext$rmd_files <- rmd_vec_ext
+    yaml::write_yaml(
+      yml_ext,
+      file = "ext_rmd_order.yml"
+    )
 
-    if(!is.null(rmd_vec_ext)) {
+    if (add_missing) {
+      rmd_vec_ext_add <- setdiff(
+        paste0("ext/", list.files(here::here("ext"), ".Rmd$")),
+        rmd_vec_ext
+        )
+      rmd_vec_ext_add <- rmd_vec_ext_add[rmd_vec_ext_add != ""]
+      rmd_vec_ext_add <- rmd_vec_ext_add[file.exists(rmd_vec_ext_add)]
+      if (length(rmd_vec_ext_add) > 0) {
+        rmd_vec_ext <- unique(
+          c(rmd_vec_ext, rmd_vec_ext_add)
+        )
+        yml_ext$rmd_files <- rmd_vec_ext
+        yaml::write_yaml(
+          yml_ext,
+          file = "ext_rmd_order.yml"
+        )
+      }
+    }
+
+    if (length(rmd_vec_ext) > 0) {
       paper_vec_ext <- rmd_vec_ext[grepl("^ext/zz-", rmd_vec_ext)]
       topic_vec_ext <- setdiff(rmd_vec_ext, paper_vec_ext)
       bib_vec_ext <- paper_vec_ext[grepl("ext/zz-zz-", paper_vec_ext)]

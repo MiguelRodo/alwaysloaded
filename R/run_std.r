@@ -82,4 +82,13 @@ run_std <- function(env = rlang::caller_env()) {
     value = bi,
     envir = env
   )
+
+  # open libraries
+  suppressMessages(suppressWarnings(invisible(library(ggplot2))))
+  assign("%>%",
+         value = magrittr::`%>%`,
+         envir = env)
+  suppressMessages(suppressWarnings(invisible(library(stringr))))
+
+  invisible(TRUE)
 }

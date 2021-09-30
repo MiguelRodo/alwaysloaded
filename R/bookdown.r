@@ -95,7 +95,7 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
     rmd_vec_add <- rmd_vec_add[file.exists(rmd_vec_add)]
     if (length(rmd_vec_add) > 0) {
       rmd_vec <- unique(
-        c(rdm_vec, rmd_vec_add)
+        c(rmd_vec, rmd_vec_add)
       )
       yml$rmd_files <- rmd_vec
       yaml::write_yaml(

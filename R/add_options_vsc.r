@@ -34,4 +34,14 @@ add_options_vsc <- function() {
     radian.highlight_matching_bracket = FALSE,
     radian.auto_identation = TRUE
   )
+
+  if (interactive() && Sys.getenv("TERM_PROGRAM") == "vscode") {
+    if ("httpgd" %in% .packages(all.available = TRUE)) {
+      options(vsc.plot = FALSE)
+      options(device = function(...) {
+        httpgd::hgd(silent = TRUE)
+        .vsc.browser(httpgd::hgd_url(), viewer = "Beside")
+      })
+    }
+  }
 }

@@ -24,9 +24,10 @@ kb <- function(input = NULL,
                exact = FALSE,
                inc_ext = FALSE,
                add_missing = FALSE) {
-
-  alwaysloaded:::adj_yaml(inc_ext = inc_ext,
-                          add_missing = add_missing)
+  alwaysloaded:::adj_yaml(
+    inc_ext = inc_ext,
+    add_missing = add_missing
+  )
 
 
   if (is.null(input)) {
@@ -77,12 +78,15 @@ kb <- function(input = NULL,
   invisible(TRUE)
 }
 
-kbt <- function(add_missing = FALSE) kb(inc_ext = TRUE,
-                                       add_missing = add_missing)
+kbt <- function(add_missing = FALSE) {
+  kb(
+    inc_ext = TRUE,
+    add_missing = add_missing
+  )
+}
 
 #' @title Include or exclude non-work Rmds from _bookdown.yml
 adj_yaml <- function(inc_ext = FALSE, add_missing) {
-
   yml <- yaml::read_yaml("_bookdown.yml")
   rmd_vec <- yml$rmd_files
   rmd_vec <- rmd_vec[!grepl("^ext/", rmd_vec)]
@@ -114,7 +118,6 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
 
 
   if (inc_ext) {
-
     yml_ext <- yaml::read_yaml("ext_rmd_order.yml")
     rmd_vec_ext <- yml_ext$rmd_files
     rmd_vec_ext <- rmd_vec_ext[grepl("^ext/", rmd_vec_ext)]
@@ -130,7 +133,7 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
       rmd_vec_ext_add <- setdiff(
         paste0("ext/", list.files(here::here("ext"), ".Rmd$")),
         rmd_vec_ext
-        )
+      )
       rmd_vec_ext_add <- rmd_vec_ext_add[rmd_vec_ext_add != ""]
       rmd_vec_ext_add <- rmd_vec_ext_add[file.exists(rmd_vec_ext_add)]
       if (length(rmd_vec_ext_add) > 0) {
@@ -155,7 +158,7 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
       topic_vec <- c(
         topic_vec,
         topic_vec_ext
-        )
+      )
       meetings_vec <- c(
         meetings_vec,
         meetings_vec_ext
@@ -169,7 +172,6 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
         bib_vec_ext
       )
     }
-
   }
 
   rmd_vec <- c(

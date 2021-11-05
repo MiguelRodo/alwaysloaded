@@ -2,14 +2,13 @@
 #'
 #' @export
 add_options_vsc <- function() {
-  
   x <- utils::sessionInfo()
   version <- gsub("R version ", "", x$R.version$version.string)
   version <- stringr::str_sub(
     version,
     end = stringr::str_locate(version, "\\s")[, 1][[1]] - 1
   )
-  
+
   version <- stringr::str_sub(version, end = 1)
   if (as.numeric(version) >= 4) {
     # interactive plots with {httpgd}

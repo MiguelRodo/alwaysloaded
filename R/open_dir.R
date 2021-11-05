@@ -19,7 +19,6 @@
 #'
 #' @examples
 #' od()
-#'
 od <- function(path = here::here()) {
   path <- normalizePath(path)
   text_command <- paste0("powershell explorer ", path)

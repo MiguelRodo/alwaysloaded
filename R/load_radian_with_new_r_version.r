@@ -32,13 +32,12 @@ rv <- function(version = "4") {
       "/bin/R.exe'"
     )
   )
-
 }
 
 #' @title Open a specified R Version in terminal
-#' 
+#'
 #' @details Only seems to work when opening current version.
-#' Therefore only r_r is exported. 
+#' Therefore only r_r is exported.
 r_ov <- function(version) {
   version <- switch(as.character(version),
     "3" = "3.6.3",
@@ -83,7 +82,6 @@ r_r <- function() {
 #'
 #' Does not seem to work properly - seems to still use old libraries
 r_cv <- function(version = NULL) {
-
   x <- sessionInfo()
   version <- gsub("R version ", "", x$R.version$version.string)
   version <- stringr::str_sub(
@@ -95,10 +93,9 @@ r_cv <- function(version = NULL) {
 
   r_ov(version = version)
   invisible(TRUE)
-
 }
 
-r_v <- function(){
+r_v <- function() {
   x <- sessionInfo()
   version <- gsub("R version ", "", x$R.version$version.string)
   version <- stringr::str_sub(
@@ -110,7 +107,6 @@ r_v <- function(){
 
 #' @title Create text for changing version in PowerShell
 r_pst <- function(version = NULL) {
-
   version <- "4.1.0"
   cat(
     paste0(

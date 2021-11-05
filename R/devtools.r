@@ -16,7 +16,6 @@ dd <- function() {
 
 #' @export
 bi <- function(version = NULL) {
-
   if (is.null(version)) {
     x <- sessionInfo()
     version <- gsub("R version ", "", x$R.version$version.string)
@@ -24,7 +23,7 @@ bi <- function(version = NULL) {
       version,
       end = stringr::str_locate(version, "\\s")[, 1][[1]] - 1
     )
-  } else{
+  } else {
     stop("version cannot yet be specified.
     Need to figure out how to build to correct version's library.")
     version <- purrr::map_chr(version, function(x) {

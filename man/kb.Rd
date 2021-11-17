@@ -4,7 +4,7 @@
 \alias{kb}
 \title{Knit book}
 \usage{
-kb(input = NULL, exact = FALSE, inc_ext = FALSE, add_missing = TRUE)
+kb(input = NULL, exact = FALSE, inc_ext = FALSE, add_missing = FALSE)
 }
 \arguments{
 \item{input}{character vector. If not \code{NULL}, then files

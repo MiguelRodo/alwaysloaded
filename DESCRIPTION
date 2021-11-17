@@ -1,15 +1,13 @@
 Package: alwaysloaded
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.2
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Title: Add desired .Rprofile settings
+Version: 0.2.0
+Author: Miguel Julio Rodo
+Maintainer: Miguel Julio Rodo <rdxmig002@myuct.ac.za>
+Description: Load frequently-used packages, custom R functions and R options
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Imports: 
-    magrittr,
-    rstudioapi
+    magrittr

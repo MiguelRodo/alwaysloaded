@@ -28,5 +28,4 @@ PowerShell can work on multiple OS's).
 }
 \examples{
 od()
-
 }

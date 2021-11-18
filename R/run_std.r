@@ -8,6 +8,7 @@ run_std <- function(env = rlang::caller_env()) {
   options(
     repos = c(CRAN = "https://cran.mirror.ac.za/")
   )
+  options(stringsAsFactors = FALSE)
 
   # open directories
   assign(

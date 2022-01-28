@@ -3,7 +3,7 @@
 #' @export
 run_std <- function(env = rlang::caller_env()) {
 
-  add_options_vsc()
+  alwaysloaded::add_options_vsc()
 
   # set repo to RStudio Package Manager
   options(
@@ -11,8 +11,6 @@ run_std <- function(env = rlang::caller_env()) {
   )
 
   options(stringsAsFactors = FALSE)
-
-  env <- .GlobalEnv
 
   # open directory in File Explorer
   assign(

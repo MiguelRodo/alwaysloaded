@@ -25,12 +25,13 @@ add_options_vsc <- function() {
         resolveProvider = TRUE, triggerCharacters = list(".", ":", "$")
       )
     ),
-    radian.auto_match = TRUE,
+    radian.auto_match = FALSE,
     # radian highlight scheme (choose what suits you)
     radian.color_scheme = "native",
     radian.tab_size = 2,
     radian.completion_timeout = 0.05,
     radian.insert_new_line = FALSE,
+    # see https://github.com/randy3k/radian/issues/324 re above
     radian.highlight_matching_bracket = FALSE,
     radian.auto_identation = TRUE
   )

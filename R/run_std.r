@@ -12,45 +12,47 @@ run_std <- function(env = rlang::caller_env()) {
 
   options(stringsAsFactors = FALSE)
 
+  env <- .GlobalEnv
+
   # open directory in File Explorer
   assign(
-    "od",
+    ".od",
     value = od,
     envir = env
   )
 
   # open slipbox
   assign(
-    "os",
+    ".os",
     value = os,
     envir = env
   )
 
   # open _book/index in current working dir
   assign(
-    "ob",
+    ".ob",
     value = ob,
     envir = env
   )
 
   # knit book and don't add missing Rmds
   assign(
-    "kb",
+    ".kb",
     value = kb,
     envir = env
   )
 
   # knit book and add missing Rmds
   assign(
-    "kbt",
+    ".kbt",
     value = kbt,
     envir = env
   )
 
   # add devtools::document
   assign(
-    "dd",
-    value = dd,
+    ".dd",
+    value = .dd,
     envir = env
   )
 
@@ -63,15 +65,15 @@ run_std <- function(env = rlang::caller_env()) {
 
   # open directories
   assign(
-    "dl",
-    value = dl,
+    ".dl",
+    value = .dl,
     envir = env
   )
 
   # open directories
   assign(
-    "bi",
-    value = bi,
+    ".di",
+    value = .di,
     envir = env
   )
 

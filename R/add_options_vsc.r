@@ -2,47 +2,46 @@
 #'
 #' @export
 add_options_vsc <- function() {
-  x <- utils::sessionInfo()
-  version <- gsub("R version ", "", x$R.version$version.string)
-  version <- stringr::str_sub(
-    version,
-    end = stringr::str_locate(version, "\\s")[, 1][[1]] - 1
-  )
 
-  version <- stringr::str_sub(version, end = 1)
-  if (as.numeric(version) >= 4) {
-    # interactive plots with {httpgd}
-    options(vsc.use_httpgd = TRUE)
-  }
-  options(
-    # activate RStudio Addins on command pallet
-    vsc.rstudioapi = TRUE,
+  if (Sys.getenv("TERM_PROGRAM") == "vscode") {
 
-    # code completion triggers
-    languageserver.server_capabilities = list(
-      signatureHelpProvider = list(triggerCharacters = list("(", ",", "$")),
-      completionProvider = list(
-        resolveProvider = TRUE, triggerCharacters = list(".", ":", "$")
-      )
-    ),
-    radian.auto_match = FALSE,
-    # radian highlight scheme (choose what suits you)
-    radian.color_scheme = "native",
-    radian.tab_size = 2,
-    radian.completion_timeout = 0.05,
-    radian.insert_new_line = FALSE,
-    # see https://github.com/randy3k/radian/issues/324 re above
-    radian.highlight_matching_bracket = FALSE,
-    radian.auto_identation = TRUE
-  )
+    x <- utils::sessionInfo()
+    version <- as.character(floor(as.numeric(x$R.version$major)))
+    if (as.numeric(version) >= 4) {
+      # interactive plots with {httpgd}
+      options(vsc.use_httpgd = TRUE)
+    }
 
-  if (interactive() && Sys.getenv("TERM_PROGRAM") == "vscode") {
-    if ("httpgd" %in% .packages(all.available = TRUE)) {
-      options(vsc.plot = FALSE)
-      options(device = function(...) {
-        httpgd::hgd(silent = TRUE)
-        .vsc.browser(httpgd::hgd_url(), viewer = "Beside")
-      })
+    options(
+      # activate RStudio Addins on command pallet
+      vsc.rstudioapi = TRUE,
+
+      # code completion triggers
+      languageserver.server_capabilities = list(
+        signatureHelpProvider = list(triggerCharacters = list("(", ",", "$")),
+        completionProvider = list(
+          resolveProvider = TRUE, triggerCharacters = list(".", ":", "$")
+        )
+      ),
+      radian.auto_match = FALSE,
+      # radian highlight scheme (choose what suits you)
+      radian.color_scheme = "native",
+      radian.tab_size = 2,
+      radian.completion_timeout = 0.05,
+      radian.insert_new_line = FALSE,
+      # see https://github.com/randy3k/radian/issues/324 re above
+      radian.highlight_matching_bracket = FALSE,
+      radian.auto_identation = TRUE
+    )
+
+    if (interactive()) {
+      if ("httpgd" %in% .packages(all.available = TRUE)) {
+        options(vsc.plot = FALSE)
+        options(device = function(...) {
+          httpgd::hgd(silent = TRUE)
+          .vsc.browser(httpgd::hgd_url(), viewer = "Beside")
+        })
+      }
     }
   }
 }

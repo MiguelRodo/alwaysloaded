@@ -76,7 +76,12 @@ run_std <- function(env = rlang::caller_env()) {
   )
 
   # open libraries
+  if (!require("ggplot2")) {
+    install.packages("ggplot2")
+  }
   suppressMessages(suppressWarnings(invisible(library(ggplot2))))
+    if (!require("magrittr")) install.packages("magrittr")
+
   assign("%>%",
     value = magrittr::`%>%`,
     envir = env

@@ -5,55 +5,42 @@ run_std <- function(env = rlang::caller_env()) {
 
   add_options_vsc()
 
-  # set repo
+  # set repo to RStudio Package Manager
   options(
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
 
   options(stringsAsFactors = FALSE)
 
-  # open directories
+  # open directory in File Explorer
   assign(
     "od",
     value = od,
     envir = env
   )
 
-  # open directories
+  # open slipbox
   assign(
     "os",
     value = os,
     envir = env
   )
 
-  # print powershell text
-  assign(
-    "r_pst",
-    value = r_pst,
-    envir = env
-  )
-
-  assign(
-    "r_v",
-    value = r_v,
-    envir = env
-  )
-
-  # open directories
+  # open _book/index in current working dir
   assign(
     "ob",
     value = ob,
     envir = env
   )
 
-  # open directories
+  # knit book and don't add missing Rmds
   assign(
     "kb",
     value = kb,
     envir = env
   )
 
-  # open directories
+  # knit book and add missing Rmds
   assign(
     "kbt",
     value = kbt,
@@ -66,12 +53,14 @@ run_std <- function(env = rlang::caller_env()) {
     value = dd,
     envir = env
   )
+
   # open directories
   assign(
     ".dt",
     value = .dt,
     envir = env
   )
+
   # open directories
   assign(
     "dl",

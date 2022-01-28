@@ -6,14 +6,10 @@
 #'
 #' @param path character. The initial working directory,
 #' from which the file dialog should begin browsing.
-#' Defaults to the current RStudio project directory.
+#' Defaults to \code{here::here()}.
 #'
 #' @return \code{invisible(<selected_file>/NULL)} (\code{NULL} if no file were
 #'   selected).
-#'
-#' @details
-#' Only works in Windows, at it calls PowerShell (unless
-#' PowerShell can work on multiple OS's).
 #'
 #' @export
 #'
@@ -21,7 +17,6 @@
 #' od()
 od <- function(path = here::here()) {
   path <- normalizePath(path)
-  text_command <- paste0("powershell explorer ", path)
-  system(text_command)
-  invisible(text_command)
+  utils::browseURL(path, browser = NULL)
+  invisible(path)
 }

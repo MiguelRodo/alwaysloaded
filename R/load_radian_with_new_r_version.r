@@ -4,7 +4,7 @@
 rv <- function(version = "4") {
   version <- switch(as.character(version),
     "3" = "3.6.3",
-    "4" = "4.1.0"
+    "4" = "4.1.1"
   )
   # cat(
   paste0(

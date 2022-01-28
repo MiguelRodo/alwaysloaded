@@ -219,7 +219,6 @@ ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
     html <- "index.html"
   }
   path_book <- file.path(here::here(), "_book", html)
-  text_command <- paste0("powershell Invoke-Expression ", path_book)
-  system(text_command)
-  invisible(text_command)
+  utils::browseURL(path_book)
+  invisible(path_book)
 }

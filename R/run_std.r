@@ -76,14 +76,21 @@ run_std <- function(env = rlang::caller_env()) {
   )
 
   # open libraries
-  if (!require("ggplot2")) {
+  install_ggplot2 <- suppressMessages(suppressWarnings(
+    require("ggplot2", quietly = TRUE)
+  ))
+  if (install_ggplot2) {
     install.packages("ggplot2")
   }
   suppressMessages(suppressWarnings(invisible(library(ggplot2))))
 
-  if (floor(as.numeric(sessionInfo()$R.version$major)) <= 3) {
+  if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
 
-    if (!require("magrittr")) install.packages("magrittr")
+    install_magrittr <- suppressMessages(suppressWarnings(
+      require("magrittr", quietly = TRUE)
+    ))
+
+    if (install_magrittr) install.packages("magrittr")
 
     assign("%>%",
       value = magrittr::`%>%`,

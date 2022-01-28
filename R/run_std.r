@@ -2,12 +2,14 @@
 #'
 #' @export
 run_std <- function(env = rlang::caller_env()) {
+
   add_options_vsc()
 
   # set repo
   options(
-    repos = c(CRAN = "https://cran.mirror.ac.za/")
+    repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
+
   options(stringsAsFactors = FALSE)
 
   # open directories

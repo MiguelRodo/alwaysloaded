@@ -10,6 +10,11 @@ run_std <- function(env = rlang::caller_env()) {
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
 
+  # make knitr::include_graphics use
+  # pdf automatically when knitting to PDF
+  # even when file name ends in png
+  options("knitr.graphics.auto_pdf" = TRUE)
+
   options(stringsAsFactors = FALSE)
 
   # open directory in File Explorer

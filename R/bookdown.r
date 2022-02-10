@@ -20,7 +20,7 @@
 #' Default is \code{TRUE}.
 #'
 #' @export
-kb <- function(input = NULL,
+.kb <- function(input = NULL,
                exact = FALSE,
                inc_ext = FALSE,
                add_missing = FALSE) {
@@ -78,7 +78,7 @@ kb <- function(input = NULL,
   invisible(TRUE)
 }
 
-kbt <- function(add_missing = FALSE) {
+.kbt <- function(add_missing = FALSE) {
   kb(
     inc_ext = TRUE,
     add_missing = add_missing

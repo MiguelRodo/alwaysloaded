@@ -4,12 +4,22 @@ dl <- function() {
   invisible(TRUE)
 }
 #' @export
-dd <- function() {
+.dd <- function() {
   devtools::document()
   invisible(TRUE)
 }
 #' @export
 .dt <- function() {
   devtools::test()
+  invisible(TRUE)
+}
+
+.di <- function() {
+  devtools::install()
+  invisible(TRUE)
+}
+
+.dl <- function() {
+  devtools::load_all()
   invisible(TRUE)
 }

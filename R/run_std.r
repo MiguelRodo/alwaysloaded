@@ -14,64 +14,64 @@ run_std <- function(env = rlang::caller_env()) {
 
   # open directory in File Explorer
   assign(
-    "od",
+    ".od",
     value = od,
     envir = env
   )
 
   # open slipbox
   assign(
-    "os",
+    ".os",
     value = os,
     envir = env
   )
 
   # open _book/index in current working dir
   assign(
-    "ob",
+    ".ob",
     value = ob,
     envir = env
   )
 
   # knit book and don't add missing Rmds
   assign(
-    "kb",
-    value = kb,
+    ".kb",
+    value = .kb,
     envir = env
   )
 
   # knit book and add missing Rmds
   assign(
-    "kbt",
-    value = kbt,
+    ".kbt",
+    value = .kbt,
     envir = env
   )
 
   # add devtools::document
   assign(
-    "dd",
-    value = dd,
+    ".dd",
+    value = .dd,
     envir = env
   )
 
-  # open directories
+  # add devtools::test()
   assign(
     ".dt",
     value = .dt,
     envir = env
   )
 
-  # open directories
+  # add devtools::load_all
   assign(
-    "dl",
-    value = dl,
+    ".dl",
+    value = .dl,
     envir = env
   )
 
-  # open directories
+  # add devtools::install
   assign(
-    "bi",
-    value = bi,
+    ".di",
+    value = .di,
     envir = env
   )
 

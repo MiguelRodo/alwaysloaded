@@ -81,7 +81,7 @@ run_std <- function(env = rlang::caller_env()) {
   }
   suppressMessages(suppressWarnings(invisible(library(ggplot2))))
 
-  if (floor(as.numeric(sessionInfo()$R.version$major)) <= 3) {
+  if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
 
     if (!require("magrittr")) utils::install.packages("magrittr")
 

@@ -20,15 +20,18 @@
 #' Default is \code{TRUE}.
 #'
 #' @export
-kb <- function(input = NULL,
+.kb <- function(input = NULL,
                exact = FALSE,
                inc_ext = FALSE,
                add_missing = FALSE) {
+
+  if (!require("bookdown")) {
+    utils::install.packages("bookdown")
+  }
   alwaysloaded:::adj_yaml(
     inc_ext = inc_ext,
     add_missing = add_missing
   )
-
 
   if (is.null(input)) {
     message("render beginning")
@@ -70,7 +73,7 @@ kb <- function(input = NULL,
   suppressWarnings(sink(NULL))
   suppressWarnings(sink(NULL))
 
-  ob()
+  .ob()
 
   suppressWarnings(sink(NULL))
   suppressWarnings(sink(NULL))
@@ -78,7 +81,7 @@ kb <- function(input = NULL,
   invisible(TRUE)
 }
 
-kbt <- function(add_missing = FALSE) {
+.kbt <- function(add_missing = FALSE) {
   kb(
     inc_ext = TRUE,
     add_missing = add_missing
@@ -194,7 +197,7 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
 #' @title Open book
 #'
 #' @export
-ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
+.ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
   if (!is.null(chapter)) {
     if (!exact) {
       chapter <- stringr::str_trim(chapter)

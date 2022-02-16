@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of alwaysloaded is to attach frequently-used packages and custom R functions and set desired R options. By placing these in a package rather than in a system- or user-wide `.Rprofile` file, these can easily be placed into any project-specific `.Rprofile` files and automatically updated whenever `alwaysloaded` is changed and re-installed. 
+The goal of alwaysloaded is to attach frequently-used packages and custom R functions and set desired R options. By placing these in a package rather than in a system- or user-wide `.Rprofile` file, these can easily be placed into any project-specific `.Rprofile` files and automatically updated whenever `alwaysloaded` is changed and re-installed.
 
 ## Installation
 
@@ -30,56 +30,48 @@ devtools::install_github("MiguelRodo/alwaysloaded")
 
 ## Usage
 
-``` r
-library(alwaysloaded)
-```
+### Loading standard options via .RProfile
 
-The primary function is `run_std()`, which does all the following. Place `alwaysloaded::run_std()` at the start of an .Rprofile file to make all the below happen.
+The primary function is `run_std()`. Adding the code below to .RProfile (access this easily using `usethis::edit_r_profile()`)) will ensure that standard actions are performed each time R is loaded, without causing unnecessary issues if `alwaysloaded` isn't installed:
+
+```{r , eval = FALSE}
+if (interactive()) {
+  pkg_vec_installed <- utils::installed.packages()[, "Package"]()
+  if (!"alwaysloaded" %in% pkg_vec_installed) {
+    if (!"remotes" %in% pkg_vec_installed) {
+      try(utils::install.packages("remotes"))
+    } else {
+      
+    }
+    if ("remotes" %in% utils::installed.packages()[, "Package"]) {
+      try(remotes::install_github("MiguelRodo/alwaysloaded"))
+      try(alwaysloaded::run_std())
+    } else {
+
+    }
+  } else try(alwaysloaded::run_std())
+} else {
+
+}
+```
 
 ### `run_std()`
 
-It attaches the `magrittr` pipe operator `%>%`, and attaches `ggplot2` and `stringr` (invisibly).
+#### Attached CRAN package
 
-Sets the CRAN repository to `https://cran.mirror.ac.za/`
+It attaches `ggplot2`(invisibly).
 
-Open File Explorer in a specified directory (or simply the current location given by `here::here()` if unspecified).
+#### R options
 
-``` r
-od()
-```
+- Sets the CRAN repository to `https://packagemanager.rstudio.com/all/latest`.
+- It sets `stringsAsFactors = FALSE`,
+- If the IDE is VS Code, then see `alwaysloaded::add_options_vsc` for the (many) options set there.
 
-Open slipbox (html) from anywhere.
-``` r
-os()
-```
+#### Functions added to global environment
 
-Add VS Code-specific options, if running R in VS code.
-``` r
-add_options_vsc()
-```
-
-Adds convenience functions regarding the current R version.
-``` r
-# check R version
-r_v()
-# print text to run in PowerShell to load R in a given version
-r_pst()
-```
-
-Adds convenience functions for working with `bookdown`.
-``` r
-# open pre-compiled book at `_book/index.html`
-ob()
-# knit a book and open immediately afterwards
-kb()
-```
-
-Adds convenience functions for working with `devtools` (useful when working outside RStudio).
-``` r
-# run devtools::document()
-dd()
-# run devtools::tests()
-.dt()
-# run devtools::load_all()
-dl()
-```
+- It attaches the `magrittr` pipe operator `%>%` for R versions before 4.0.0.
+- It attaches various convenience functions:
+  - `devtools`-associated functions
+  - `.kb` and `.ob` to knit and open `bookdown` output.
+  - `.od` to open a File Explorer pane at a specified directory.
+  - `.rv` to print the current R version.

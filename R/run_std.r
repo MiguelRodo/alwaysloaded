@@ -15,21 +15,21 @@ run_std <- function(env = rlang::caller_env()) {
   # open directory in File Explorer
   assign(
     ".od",
-    value = od,
+    value = .od,
     envir = env
   )
 
   # open slipbox
   assign(
     ".os",
-    value = os,
+    value = .os,
     envir = env
   )
 
   # open _book/index in current working dir
   assign(
     ".ob",
-    value = ob,
+    value = .ob,
     envir = env
   )
 
@@ -83,7 +83,7 @@ run_std <- function(env = rlang::caller_env()) {
   )
 
   # open libraries
-  if (!require("ggplot2")) {
+  if (!"ggplot2" %in% utils::installed.packages()) {
     message("installing ggplot2")
     utils::install.packages("ggplot2")
   }
@@ -91,7 +91,7 @@ run_std <- function(env = rlang::caller_env()) {
 
   if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
 
-    if (!require("magrittr")) {
+    if (!"magrittr" %in% utils::installed.packages()) {
       message("installing magrittr")
       utils::install.packages("magrittr")
     }

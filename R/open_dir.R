@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' od()
-od <- function(path = here::here()) {
+.od <- function(path = here::here()) {
   path <- normalizePath(path)
   utils::browseURL(path, browser = NULL)
   invisible(path)

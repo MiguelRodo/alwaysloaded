@@ -58,7 +58,8 @@ It attaches `ggplot2`(invisibly).
 #### R options
 
 - Sets the CRAN repository to `https://packagemanager.rstudio.com/all/latest`.
-- If the IDE is VS Code, then see `alwaysloaded::add_options_vsc` for the options set.
+- It sets `stringsAsFactors = FALSE`,
+- If the IDE is VS Code, then see `alwaysloaded::add_options_vsc` for the (many) options set there.
 
 #### Functions added to global environment
 

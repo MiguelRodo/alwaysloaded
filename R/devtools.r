@@ -1,5 +1,5 @@
 #' @export
-dl <- function() {
+.dl <- function() {
   if (!require("devtools")) {
     message("installing devtools")
     install.packages("devtools")
@@ -26,6 +26,7 @@ dl <- function() {
   invisible(TRUE)
 }
 
+#' @export
 .di <- function() {
   if (!require("devtools")) {
     message("installing devtools")
@@ -35,6 +36,7 @@ dl <- function() {
   invisible(TRUE)
 }
 
+#' @export
 .dl <- function() {
   if (!require("devtools")) {
     message("installing devtools")

@@ -73,7 +73,7 @@
   suppressWarnings(sink(NULL))
   suppressWarnings(sink(NULL))
 
-  ob()
+  .ob()
 
   suppressWarnings(sink(NULL))
   suppressWarnings(sink(NULL))
@@ -197,7 +197,7 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
 #' @title Open book
 #'
 #' @export
-ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
+.ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
   if (!is.null(chapter)) {
     if (!exact) {
       chapter <- stringr::str_trim(chapter)

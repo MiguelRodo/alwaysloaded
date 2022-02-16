@@ -31,14 +31,14 @@ unnecessary issues if `alwaysloaded` isn’t installed:
 
 ``` r
 if (interactive()) {
-  pkg_vec_installed <- utils::installed.packages()
+  pkg_vec_installed <- utils::installed.packages()[, "Package"]()
   if (!"alwaysloaded" %in% pkg_vec_installed) {
     if (!"remotes" %in% pkg_vec_installed) {
       try(utils::install.packages("remotes"))
     } else {
       
     }
-    if ("remotes" %in% utils::installed.packages()) {
+    if ("remotes" %in% utils::installed.packages()[, "Package"]) {
       try(remotes::install_github("MiguelRodo/alwaysloaded"))
       try(alwaysloaded::run_std())
     } else {

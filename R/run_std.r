@@ -75,6 +75,13 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  # add .rv to print R version
+  assign(
+    ".rv",
+    value = .rv,
+    envir = env
+  )
+
   # open libraries
   if (!require("ggplot2")) {
     message("installing ggplot2")

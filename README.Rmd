@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of alwaysloaded is to attach frequently-used packages and custom R functions and set desired R options. By placing these in a package rather than in a system- or user-wide `.Rprofile` file, these can easily be placed into any project-specific `.Rprofile` files and automatically updated whenever `alwaysloaded` is changed and re-installed. 
+The goal of alwaysloaded is to attach frequently-used packages and custom R functions and set desired R options. By placing these in a package rather than in a system- or user-wide `.Rprofile` file, these can easily be placed into any project-specific `.Rprofile` files and automatically updated whenever `alwaysloaded` is changed and re-installed.
 
 ## Installation
 
@@ -39,14 +39,14 @@ if (interactive()) {
   pkg_vec_installed <- utils::installed.packages()
   if (!"alwaysloaded" %in% pkg_vec_installed) {
     if (!"remotes" %in% pkg_vec_installed) {
-      try(utils::install.packages("remotes"))
+      try(utils::install.packages("remotes"), silent = TRUE)
     } else {}
     if ("remotes" %in% utils::installed.packages()) {
-      try(remotes::install_github("MiguelRodo/alwaysloaded"))
-      try(alwaysloaded::run_std())    
+      try(remotes::install_github("MiguelRodo/alwaysloaded"), silent = TRUE)
+      try(alwaysloaded::run_std(), silent = TRUE)
     } else {}
-  } else try(alwaysloaded::run_std())
-} else {}	
+  } else try(alwaysloaded::run_std(), silent = TRUE)
+} else {}
 ```
 
 ### `run_std()`
@@ -63,7 +63,7 @@ It attaches `ggplot2`(invisibly).
 
 #### Functions added to global environment
 
-- It attaches the `magrittr` pipe operator `%>%` for R versions before 4.0.0. 
+- It attaches the `magrittr` pipe operator `%>%` for R versions before 4.0.0.
 - It attaches various convenience functions:
   - `devtools`-associated functions
   - `.kb` and `.ob` to knit and open `bookdown` output.

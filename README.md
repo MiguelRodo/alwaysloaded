@@ -34,14 +34,20 @@ if (interactive()) {
   pkg_vec_installed <- utils::installed.packages()
   if (!"alwaysloaded" %in% pkg_vec_installed) {
     if (!"remotes" %in% pkg_vec_installed) {
-      try(utils::install.packages("remotes"), silent = TRUE)
-    } else {}
+      try(utils::install.packages("remotes"))
+    } else {
+      
+    }
     if ("remotes" %in% utils::installed.packages()) {
-      try(remotes::install_github("MiguelRodo/alwaysloaded"), silent = TRUE)
-      try(alwaysloaded::run_std(), silent = TRUE)
-    } else {}
-  } else try(alwaysloaded::run_std(), silent = TRUE)
-} else {}
+      try(remotes::install_github("MiguelRodo/alwaysloaded"))
+      try(alwaysloaded::run_std())
+    } else {
+
+    }
+  } else try(alwaysloaded::run_std())
+} else {
+
+}
 ```
 
 ### `run_std()`

@@ -32,6 +32,7 @@
     message("installing devtools")
     install.packages("devtools")
   }
+  .dd()
   devtools::install(upgrade = "never")
   invisible(TRUE)
 }

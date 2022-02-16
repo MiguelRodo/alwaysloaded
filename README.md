@@ -40,7 +40,7 @@ if (interactive()) {
       try(remotes::install_github("MiguelRodo/alwaysloaded"))
       try(alwaysloaded::run_std())    
     } else {}
-  } else alwaysloaded::run_std()
+  } else try(alwaysloaded::run_std())
 } else {}   
 ```
 

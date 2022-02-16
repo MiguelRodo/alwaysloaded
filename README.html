@@ -632,7 +632,7 @@ issues if <code>alwaysloaded</code> isn’t installed:</p>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">try</span>(remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;MiguelRodo/alwaysloaded&quot;</span>))</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">try</span>(alwaysloaded<span class="sc">::</span><span class="fu">run_std</span>())    </span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> alwaysloaded<span class="sc">::</span><span class="fu">run_std</span>()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="fu">try</span>(alwaysloaded<span class="sc">::</span><span class="fu">run_std</span>())</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {}   </span></code></pre></div>
 <h3 id="run_std"><code>run_std()</code></h3>
 <h4 id="attached-cran-package">Attached CRAN package</h4>

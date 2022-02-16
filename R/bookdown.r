@@ -24,11 +24,14 @@
                exact = FALSE,
                inc_ext = FALSE,
                add_missing = FALSE) {
+
+  if (!require("bookdown")) {
+    utils::install.packages("bookdown")
+  }
   alwaysloaded:::adj_yaml(
     inc_ext = inc_ext,
     add_missing = add_missing
   )
-
 
   if (is.null(input)) {
     message("render beginning")

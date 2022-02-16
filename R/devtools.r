@@ -31,7 +31,7 @@ dl <- function() {
     message("installing devtools")
     install.packages("devtools")
   }
-  devtools::install()
+  devtools::install(upgrade = "never")
   invisible(TRUE)
 }
 

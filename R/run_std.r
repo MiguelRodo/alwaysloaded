@@ -101,12 +101,10 @@ run_std <- function(env = rlang::caller_env()) {
       utils::install.packages("magrittr")
     }
 
-    if (install_magrittr) utils::install.packages("magrittr")
-
-    assign("%>%",
+    try(assign("%>%",
       value = magrittr::`%>%`,
       envir = env
-    )
+    ))
   }
 
   invisible(TRUE)

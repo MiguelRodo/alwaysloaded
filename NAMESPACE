@@ -2,6 +2,7 @@
 
 export("%>%")
 export(.dd)
+export(.detach_pkg)
 export(.di)
 export(.dl)
 export(.dt)

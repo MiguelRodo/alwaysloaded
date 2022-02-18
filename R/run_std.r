@@ -87,6 +87,14 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  # detach package(s)
+  assign(
+    ".detach_pkg",
+    value = .detach_pkg,
+    envir = env
+  )
+
+
   # open libraries
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     message("installing ggplot2")

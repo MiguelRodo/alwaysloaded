@@ -1,26 +1,26 @@
 #' @export
 .dl <- function() {
-  if (!require("devtools")) {
+  if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
-    install.packages("devtools")
+    utils::install.packages("devtools")
   }
   devtools::load_all(here::here())
   invisible(TRUE)
 }
 #' @export
 .dd <- function() {
-  if (!require("devtools")) {
+  if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
-    install.packages("devtools")
+    utils::install.packages("devtools")
   }
   devtools::document()
   invisible(TRUE)
 }
 #' @export
 .dt <- function() {
-  if (!require("devtools")) {
+  if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
-    install.packages("devtools")
+    utils::install.packages("devtools")
   }
   devtools::test()
   invisible(TRUE)
@@ -28,9 +28,9 @@
 
 #' @export
 .di <- function() {
-  if (!require("devtools")) {
+  if (!requireNamespace("devtools")) {
     message("installing devtools")
-    install.packages("devtools")
+    utils::install.packages("devtools")
   }
   .dd()
   devtools::install(upgrade = "never")
@@ -39,9 +39,9 @@
 
 #' @export
 .dl <- function() {
-  if (!require("devtools")) {
+  if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
-    install.packages("devtools")
+    utils::install.packages("devtools")
   }
   devtools::load_all()
   invisible(TRUE)

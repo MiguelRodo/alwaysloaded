@@ -88,7 +88,7 @@ run_std <- function(env = rlang::caller_env()) {
   )
 
   # open libraries
-  if (!"ggplot2" %in% utils::installed.packages()[, "Package"]) {
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
     message("installing ggplot2")
     utils::install.packages("ggplot2")
   }
@@ -96,7 +96,7 @@ run_std <- function(env = rlang::caller_env()) {
 
   if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
 
-    if (!"magrittr" %in% utils::installed.packages()[, "Package"]) {
+    if (!requireNamespace("magrittr", quietly = TRUE)) {
       message("installing magrittr")
       utils::install.packages("magrittr")
     }

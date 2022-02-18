@@ -25,7 +25,7 @@
                inc_ext = FALSE,
                add_missing = FALSE) {
 
-  if (!require("bookdown")) {
+  if (!requireNamespace("bookdown", quietly = TRUE)) {
     utils::install.packages("bookdown")
   }
   alwaysloaded:::adj_yaml(

@@ -3,12 +3,17 @@
 #' @export
 run_std <- function(env = rlang::caller_env()) {
 
-  add_options_vsc()
+  alwaysloaded::add_options_vsc()
 
   # set repo to RStudio Package Manager
   options(
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
+
+  # make knitr::include_graphics use
+  # pdf automatically when knitting to PDF
+  # even when file name ends in png
+  options("knitr.graphics.auto_pdf" = TRUE)
 
   options(stringsAsFactors = FALSE)
 
@@ -96,10 +101,10 @@ run_std <- function(env = rlang::caller_env()) {
       utils::install.packages("magrittr")
     }
 
-    assign("%>%",
+    try(assign("%>%",
       value = magrittr::`%>%`,
       envir = env
-    )
+    ))
   }
 
   invisible(TRUE)

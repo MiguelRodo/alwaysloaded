@@ -1,7 +1,7 @@
 #' @title Standard tasks for inside .Rprofile
 #'
 #' @export
-run_std <- function(env = rlang::caller_env()) {
+run_std <- function(env = parent.frame(2)) {
 
   alwaysloaded::add_options_vsc()
 

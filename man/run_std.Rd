@@ -4,7 +4,7 @@
 \alias{run_std}
 \title{Standard tasks for inside .Rprofile}
 \usage{
-run_std(env = rlang::caller_env())
+run_std(env = parent.frame(2))
 }
 \description{
 Standard tasks for inside .Rprofile

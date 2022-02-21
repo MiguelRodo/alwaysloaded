@@ -94,6 +94,46 @@ run_std <- function(env = rlang::caller_env()) {
     envir = env
   )
 
+  # set R version
+  assign(
+    ".srv",
+    value = .srv,
+    envir = env
+  )
+
+  # set R version
+  assign(
+    ".set_r_version",
+    value = .srv,
+    envir = env
+  )
+
+  # unset R version
+  assign(
+    ".rrv",
+    value = .urv,
+    envir = env
+  )
+  # unset R version
+  assign(
+    ".urv",
+    value = .urv,
+    envir = env
+  )
+
+  # unset R version
+  assign(
+    ".unset_r_version",
+    value = .urv,
+    envir = env
+  )
+
+  # unset R version
+  assign(
+    ".remove_r_version",
+    value = .urv,
+    envir = env
+  )
 
   # open libraries
   if (!requireNamespace("ggplot2", quietly = TRUE)) {

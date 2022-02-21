@@ -8,7 +8,6 @@
 #'
 #' @param x object. Object whose class is assessed.
 #' @param y character vector. Expected classes of \code{x}.
-#'
 assert <- function(x, y) {
   if (!is.null(x)) {
     if (!inherits(x, y)) {

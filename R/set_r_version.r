@@ -188,6 +188,9 @@
     ]
 
   ws_settings_json <- rjson::toJSON(ws_settings_json, indent = 2)
+  if (!dir.exists(dirname(here::here(".vscode")))) dir.create(
+    here::here(".vscode"), recursive = TRUE
+    )
   write(ws_settings_json, file = here::here(".vscode/settings.json"))
 
   invisible(TRUE)

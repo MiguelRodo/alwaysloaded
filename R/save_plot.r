@@ -9,8 +9,8 @@
 #' or cowplot::plot_grid.
 #' @param device character vector. Devices to save in (i.e. plot format).
 #' Default is \code(c("png", "pdf")).
-#' 
-#' @details 
+#'
+#' @details
 #' This function should be copied to another package/report rather than
 #' run from alwaysloaded, as alwaysloaded is simply a convenience package.
 #'

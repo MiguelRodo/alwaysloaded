@@ -28,7 +28,7 @@
 
 #' @export
 .di <- function() {
-  if (!requireNamespace("devtools")) {
+  if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")
   }

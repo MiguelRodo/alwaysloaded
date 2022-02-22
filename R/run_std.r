@@ -2,7 +2,6 @@
 #'
 #' @export
 run_std <- function(env = parent.frame(2)) {
-
   alwaysloaded::add_options_vsc()
 
   # set repo to RStudio Package Manager
@@ -97,41 +96,35 @@ run_std <- function(env = parent.frame(2)) {
   # set R version
   assign(
     ".srv",
-    value = .srv,
+    value = .set_r_version,
     envir = env
   )
 
   # set R version
   assign(
     ".set_r_version",
-    value = .srv,
+    value = .set_r_version,
     envir = env
   )
 
-  # unset R version
+  # set VSC rmd settings
   assign(
-    ".rrv",
-    value = .urv,
-    envir = env
-  )
-  # unset R version
-  assign(
-    ".urv",
-    value = .urv,
+    ".set_vsc_setting_rmd",
+    value = .set_vsc_setting_rmd,
     envir = env
   )
 
-  # unset R version
+  # unset vsc setting
   assign(
-    ".unset_r_version",
-    value = .urv,
+    ".set_vsc_setting",
+    value = .set_vsc_setting,
     envir = env
   )
 
-  # unset R version
+  # unset vsc setting
   assign(
-    ".remove_r_version",
-    value = .urv,
+    ".unset_vsc_setting",
+    value = .unset_vsc_setting,
     envir = env
   )
 
@@ -143,7 +136,6 @@ run_std <- function(env = parent.frame(2)) {
   suppressMessages(suppressWarnings(invisible(library(ggplot2))))
 
   if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
-
     if (!requireNamespace("magrittr", quietly = TRUE)) {
       message("installing magrittr")
       utils::install.packages("magrittr")

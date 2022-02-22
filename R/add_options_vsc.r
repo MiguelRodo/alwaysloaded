@@ -2,9 +2,7 @@
 #'
 #' @export
 add_options_vsc <- function() {
-
   if (Sys.getenv("TERM_PROGRAM") == "vscode") {
-
     x <- utils::sessionInfo()
     version <- as.character(floor(as.numeric(x$R.version$major)))
     if (as.numeric(version) >= 4) {

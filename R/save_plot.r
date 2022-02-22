@@ -16,16 +16,15 @@
 #'
 #' @return \code{invisible(filename)}.
 save_plot <- function(filename, plot, device = c("png", "pdf"), ...) {
-
   if (!requireNamespace("cowplot", quietly = TRUE)) {
-      install.packages("cowplot", quiet = TRUE)
+    install.packages("cowplot", quiet = TRUE)
   }
 
   filename_orig <- filename
   if (grepl(".png", filename)) {
-      filename <- gsub(".png$", "", filename)
+    filename <- gsub(".png$", "", filename)
   } else if (grepl(".pdf", filename)) {
-      filename <- gsub(".pdf$", "", filename)
+    filename <- gsub(".pdf$", "", filename)
   }
   for (x in device) {
     cowplot::save_plot(

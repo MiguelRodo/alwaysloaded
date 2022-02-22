@@ -21,10 +21,9 @@
 #'
 #' @export
 .kb <- function(input = NULL,
-               exact = FALSE,
-               inc_ext = FALSE,
-               add_missing = FALSE) {
-
+                exact = FALSE,
+                inc_ext = FALSE,
+                add_missing = FALSE) {
   if (!requireNamespace("bookdown", quietly = TRUE)) {
     utils::install.packages("bookdown")
   }

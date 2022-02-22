@@ -12,13 +12,13 @@
   for (xx in x) {
     library(xx, character.only = TRUE)
     args_list <- list(
-          name = paste0("package:", xx),
-          unload = TRUE,
-          character.only = TRUE
-        )
+      name = paste0("package:", xx),
+      unload = TRUE,
+      character.only = TRUE
+    )
     do.call(
-        what = "detach",
-        args = args_list
+      what = "detach",
+      args = args_list
     )
   }
   invisible(TRUE)

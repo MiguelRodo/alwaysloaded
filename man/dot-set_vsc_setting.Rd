@@ -27,7 +27,7 @@ elements with pre-existing values,
 the first argument
 takes that pre-existing value.}
 
-\item{update}{logical. 
+\item{update}{logical.
 If \code{TRUE}, then elements whose names
 match \code{nm} are changed.
 Default is \code{TRUE}.}

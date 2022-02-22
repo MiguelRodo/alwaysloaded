@@ -9,6 +9,10 @@
 }
 #' @export
 .dd <- function() {
+  if (file.exists("NAMESPACE")) {
+    x <- read.table("NAMESPACE", comment.char = "", nrows = 1)
+    if (!identical(as.character(x$V1), "#")) file.remove("NAMESPACE")
+  }
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")

@@ -1,4 +1,8 @@
 #' @title Knit book
+#' 
+#' @description 
+#' \code{kbt} is a wrapper around
+#' \code{kb} with \code{inc_ext = TRUE}.
 #'
 #' @param input character vector. If not \code{NULL}, then files
 #' that match to elements in here
@@ -80,6 +84,8 @@
   invisible(TRUE)
 }
 
+#' @export 
+#' @rdname dot-kb
 .kbt <- function(add_missing = FALSE) {
   kb(
     inc_ext = TRUE,

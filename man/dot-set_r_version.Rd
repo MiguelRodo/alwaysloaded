@@ -2,9 +2,18 @@
 % Please edit documentation in R/set_vsc_setting-r_version.r
 \name{.set_r_version}
 \alias{.set_r_version}
+\alias{.srv}
+\alias{srv}
 \title{Set R version for build and console}
 \usage{
 .set_r_version(
+  r_v = "",
+  nm = c("r.rpath.windows", "r.rterm.option"),
+  path_to_settings = here::here(".vscode/settings.json"),
+  r_dir = "C:\\\\Program Files\\\\R"
+)
+
+.srv(
   r_v = "",
   nm = c("r.rpath.windows", "r.rterm.option"),
   path_to_settings = here::here(".vscode/settings.json"),

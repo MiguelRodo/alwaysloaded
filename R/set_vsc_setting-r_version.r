@@ -15,6 +15,8 @@
 #'
 #' @return \code{invisible(TRUE)}. Side effect is that
 #' JSON file with settings is updated.
+#' 
+#' @aliases .srv srv
 #'
 #' @export
 .set_r_version <- function(r_v = "",
@@ -62,6 +64,10 @@
 
   invisible(TRUE)
 }
+
+#' @rdname dot-set_r_version
+#' @export
+.srv <- .set_r_version
 
 .get_rpath <- function(setting_old, r_version, r_dir) {
   if (identical(setting_old, "~~unset~~")) {

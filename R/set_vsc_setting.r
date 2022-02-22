@@ -25,6 +25,8 @@
 #' the first argument
 #' takes that pre-existing value.
 #' @param ... Passed on to fn.
+#'
+#' @export
 .set_vsc_setting <- function(nm,
                              val_or_fn,
                              path_to_settings = here::here(".vscode/settings.json"), # nolint
@@ -65,7 +67,8 @@
       ind_x <- which(vapply(names(settings), function(y) {
         identical(y, x)
       }, logical(1)))
-      settings[[ind_x]] <- switch(as.character(identical(class(val_or_fn), "function")),
+      settings[[ind_x]] <- switch(
+        as.character(identical(class(val_or_fn), "function")),
         "FALSE" = val_or_fn,
         "TRUE" = val_or_fn(settings[[ind_x]], ...)
       )
@@ -101,6 +104,17 @@
   invisible(TRUE)
 }
 
+#' @title Unset a VSC setting
+#'
+#' @description
+#' Remove a setting entirely from the VSC JSON
+#' settings file.
+#'
+#' @param nm character vector.
+#' Names of settings to remove.
+#' @inheritParams .set_vsc_setting
+#'
+#' @export
 .unset_vsc_setting <- function(nm,
                                path_to_settings = here::here(".vscode/settings.json") # nolint
 ) {

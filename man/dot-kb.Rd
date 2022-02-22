@@ -2,9 +2,12 @@
 % Please edit documentation in R/bookdown.r
 \name{.kb}
 \alias{.kb}
+\alias{.kbt}
 \title{Knit book}
 \usage{
 .kb(input = NULL, exact = FALSE, inc_ext = FALSE, add_missing = FALSE)
+
+.kbt(add_missing = FALSE)
 }
 \arguments{
 \item{input}{character vector. If not \code{NULL}, then files
@@ -30,5 +33,6 @@ Otherwise no rmd's not explicitly included are included.
 Default is \code{TRUE}.}
 }
 \description{
-Knit book
+\code{kbt} is a wrapper around
+\code{kb} with \code{inc_ext = TRUE}.
 }

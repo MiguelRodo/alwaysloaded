@@ -38,12 +38,12 @@ if (interactive()) {
     }
     if ("remotes" %in% utils::installed.packages()[, "Package"]) {
       try(remotes::install_github("MiguelRodo/alwaysloaded"))
-      try(library(alwaysloaded))
       try(alwaysloaded::run_std())
+      try(library(alwaysloaded))
     }
   } else {
-    try(library(alwaysloaded))
     try(alwaysloaded::run_std())
+    try(library(alwaysloaded))
   }
 }
 ```

@@ -17,6 +17,12 @@ run_std <- function(env = parent.frame(2)) {
   options(stringsAsFactors = FALSE)
 
   # open libraries
+  # keep "standard" libraries first
+  library("datasets")
+  library("utils")
+  library("grDevices")
+  library("graphics")
+  library("stats")
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     message("installing ggplot2")
     utils::install.packages("ggplot2")

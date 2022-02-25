@@ -9,6 +9,13 @@ run_std <- function(env = parent.frame(2)) {
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
 
+  # change prompt style, don't show more than four digits
+  # and don't show significance stars
+  options(prompt = "R> ", digits = 4, show.signif.stars = FALSE)
+
+  # don't open  dialogye boxes, but rather print to console
+  options(menu.graphics = FALSE)
+
   # make knitr::include_graphics use
   # pdf automatically when knitting to PDF
   # even when file name ends in png
@@ -41,7 +48,7 @@ run_std <- function(env = parent.frame(2)) {
     ))
   }
 
-  rm("pkg_vec_installed", envir = .GlobalEnv)
+  suppressWarnings(rm("pkg_vec_installed", envir = .GlobalEnv))
 
   invisible(TRUE)
 }

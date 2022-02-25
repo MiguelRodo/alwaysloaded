@@ -31,11 +31,11 @@ run_std <- function(env = parent.frame(2)) {
   library("graphics")
   library("stats")
   if (interactive()) {
-    if (!requireNamespace("ggplot2", quietly = TRUE)) {
-      message("installing ggplot2")
-      utils::install.packages("ggplot2")
-    }
-    suppressMessages(suppressWarnings(invisible(library(ggplot2))))
+    # if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    #  message("installing ggplot2")
+    #  utils::install.packages("ggplot2")
+    # }
+    # suppressMessages(suppressWarnings(invisible(library(ggplot2))))
 
     if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
       if (!requireNamespace("magrittr", quietly = TRUE)) {

@@ -67,8 +67,7 @@
       ind_x <- which(vapply(names(settings), function(y) {
         identical(y, x)
       }, logical(1)))
-      settings[[ind_x]] <- switch(
-        as.character(identical(class(val_or_fn), "function")),
+      settings[[ind_x]] <- switch(as.character(identical(class(val_or_fn), "function")),
         "FALSE" = val_or_fn,
         "TRUE" = val_or_fn(settings[[ind_x]], ...)
       )
@@ -144,4 +143,3 @@
 
   invisible(TRUE)
 }
-

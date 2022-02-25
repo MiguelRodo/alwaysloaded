@@ -15,7 +15,7 @@
 #'
 #' @return \code{invisible(TRUE)}. Side effect is that
 #' JSON file with settings is updated.
-#' 
+#'
 #' @aliases .srv srv
 #'
 #' @export

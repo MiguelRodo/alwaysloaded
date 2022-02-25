@@ -1,6 +1,6 @@
 #' @title Knit book
-#' 
-#' @description 
+#'
+#' @description
 #' \code{kbt} is a wrapper around
 #' \code{kb} with \code{inc_ext = TRUE}.
 #'
@@ -84,7 +84,7 @@
   invisible(TRUE)
 }
 
-#' @export 
+#' @export
 #' @rdname dot-kb
 .kbt <- function(add_missing = FALSE) {
   kb(

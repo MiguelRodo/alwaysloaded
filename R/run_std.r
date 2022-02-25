@@ -30,22 +30,24 @@ run_std <- function(env = parent.frame(2)) {
   library("grDevices")
   library("graphics")
   library("stats")
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    message("installing ggplot2")
-    utils::install.packages("ggplot2")
-  }
-  suppressMessages(suppressWarnings(invisible(library(ggplot2))))
-
-  if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
-    if (!requireNamespace("magrittr", quietly = TRUE)) {
-      message("installing magrittr")
-      utils::install.packages("magrittr")
+  if (interactive()) {
+    if (!requireNamespace("ggplot2", quietly = TRUE)) {
+      message("installing ggplot2")
+      utils::install.packages("ggplot2")
     }
+    suppressMessages(suppressWarnings(invisible(library(ggplot2))))
 
-    try(assign("%>%",
-      value = magrittr::`%>%`,
-      envir = env
-    ))
+    if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
+      if (!requireNamespace("magrittr", quietly = TRUE)) {
+        message("installing magrittr")
+        utils::install.packages("magrittr")
+      }
+
+      try(assign("%>%",
+        value = magrittr::`%>%`,
+        envir = env
+      ))
+    }
   }
 
   suppressWarnings(rm("pkg_vec_installed", envir = .GlobalEnv))

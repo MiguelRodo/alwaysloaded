@@ -4,11 +4,15 @@
 \alias{.ht}
 \title{Print head and tail}
 \usage{
-.ht(d)
+.ht(df, n = 10)
+
+.ht(df, n = 10)
 }
 \arguments{
-\item{d}{dataframe.}
+\item{df}{dataframe.}
 }
 \description{
 Print head and tail
+
+Print head
 }

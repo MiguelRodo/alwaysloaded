@@ -1,26 +1,33 @@
-#' @rdname dataframe_utils
-#' @title Print data frame like head
+#' @title Print head and tail
 #'
 #' @param df dataframe.
 #'
 #' @export
-print.data.frame <- function(df) {
-  if (nrow(df) > 10) {
-    base::print.data.frame(head(df, 5))
+.ht <- function(df, n = 10) {
+  if (nrow(df) > n) {
+    per_end <- round(n / 2)
+    base::print.data.frame(head(df, per_end))
     cat("----\n")
-    base::print.data.frame(tail(df, 5))
+    base::print.data.frame(tail(df, per_end))
   } else {
     base::print.data.frame(df)
   }
 }
 
-#' @title Print head and tail
+#' @title Print head
 #'
-#' @param d dataframe.
-.ht <- function(d) rbind(head(d, 10), tail(d, 10))
-
-#' @title Show first five rows and columns
+#' @param df dataframe.
 #'
-#' @param d dataframe
 #' @export
-.hh <- function(d) d[seq_len(min(5, nrow(d))), seq_len(min(ncol(d), 5))]
+.hh <- function(df, n = 10) {
+  base::print.data.frame(head(df, n))
+}
+
+#' @title Print head
+#'
+#' @param df dataframe.
+#'
+#' @export
+.tt <- function(df, n = 10) {
+  base::print.data.frame(head(df, n))
+}

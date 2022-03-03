@@ -1,14 +1,14 @@
 #' @export
-.dl <- function() {
+.dl <- function(...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")
   }
-  devtools::load_all(here::here())
+  devtools::load_all(...)
   invisible(TRUE)
 }
 #' @export
-.dd <- function() {
+.dd <- function(...) {
   if (file.exists("NAMESPACE")) {
     x <- read.table("NAMESPACE", comment.char = "", nrows = 1)
     if (!identical(as.character(x$V1), "#")) file.remove("NAMESPACE")
@@ -17,36 +17,36 @@
     message("installing devtools")
     utils::install.packages("devtools")
   }
-  devtools::document()
+  devtools::document(...)
   invisible(TRUE)
 }
 #' @export
-.dt <- function() {
+.dt <- function(...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")
   }
-  devtools::test()
+  devtools::test(...)
   invisible(TRUE)
 }
 
 #' @export
-.di <- function() {
+.di <- function(upgrade = "never", ...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")
   }
   .dd()
-  devtools::install(upgrade = "never")
+  devtools::install(upgrade = upgrade, ...)
   invisible(TRUE)
 }
 
 #' @export
-.dl <- function() {
+.dl <- function(...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
     utils::install.packages("devtools")
   }
-  devtools::load_all()
+  devtools::load_all(...)
   invisible(TRUE)
 }

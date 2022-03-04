@@ -36,7 +36,23 @@
 
   # install required packages
   if (!requireNamespace("rjson", quietly = TRUE)) {
-    install.packages("rjson", quiet = TRUE)
+    rv <- utils::sessionInfo()$R.version$major
+    switch(
+      rv,
+      "3" = {
+        if (!requireNamespace("versions", quietly = TRUE)) {
+          install.packages("versions")
+        }
+        versions::install.versions("rjson", versions = "0.2.20")
+      },
+      "4" = {
+        install.packages("rjson")
+      },
+      stop(
+        paste0("R major version of ", rv, " not supported"),
+        call. = FALSE
+      )
+    )
   }
   if (!requireNamespace("here", quietly = TRUE)) {
     install.packages("here", quiet = TRUE)

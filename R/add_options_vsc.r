@@ -9,9 +9,9 @@ add_options_vsc <- function() {
         install.packages("jsonlite")
       }
       if (!requireNamespace("languageserver")) {
-        install.packagesanguageserver")
+        install.packages("languageserver")
       }
-    }("l
+    }
 
     x <- utils::sessionInfo()
     version <- as.character(floor(as.numeric(x$R.version$major)))

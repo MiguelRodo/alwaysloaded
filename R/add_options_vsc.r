@@ -3,6 +3,16 @@
 #' @export
 add_options_vsc <- function() {
   if (Sys.getenv("TERM_PROGRAM") == "vscode") {
+
+    if (interactive()) {
+      if (!requireNamespace("jsonlite")) {
+        install.packages("jsonlite")
+      }
+      if (!requireNamespace("languageserver")) {
+        install.packagesanguageserver")
+      }
+    }("l
+
     x <- utils::sessionInfo()
     version <- as.character(floor(as.numeric(x$R.version$major)))
     if (as.numeric(version) >= 4) {
@@ -13,11 +23,6 @@ add_options_vsc <- function() {
     options(
       # activate RStudio Addins on command pallet
       vsc.rstudioapi = TRUE,
-      # either  `"emacs"` (default) or `"vi"`.
-      radian.editing_mode = "vi",
-      # show vi mode state when radian.editing_mode is `vi`
-      radian.show_vi_mode_prompt = TRUE,
-      radian.vi_mode_prompt = "\033[0;34m[{}]\033[0m ",
       # code completion triggers
       languageserver.server_capabilities = list(
         signatureHelpProvider = list(triggerCharacters = list("(", ",", "$")),
@@ -25,22 +30,6 @@ add_options_vsc <- function() {
           resolveProvider = TRUE, triggerCharacters = list(".", ":", "$")
         )
       ),
-      radian.auto_match = FALSE,
-      # radian highlight scheme (choose what suits you)
-      radian.color_scheme = "native",
-      radian.tab_size = 2,
-      radian.completion_timeout = 0.05,
-      radian.insert_new_line = FALSE,
-      # see https://github.com/randy3k/radian/issues/324 re above
-      radian.highlight_matching_bracket = FALSE,
-      radian.auto_identation = TRUE,
-      # pop up completion while typing
-      radian.complete_while_typing = TRUE,
-      # the minimum length of prefix to trigger auto completions
-      radian.completion_prefix_length = 2,
-      radian.completion_adding_spaces_around_equals = TRUE,
-      # enable reticulate prompt and trigger `~`
-      radian.enable_reticulate_prompt = TRUE
     )
 
     if (interactive()) {

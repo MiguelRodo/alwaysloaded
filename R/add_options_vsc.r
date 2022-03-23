@@ -29,7 +29,7 @@ add_options_vsc <- function() {
         completionProvider = list(
           resolveProvider = TRUE, triggerCharacters = list(".", ":", "$")
         )
-      ),
+      )
     )
 
     if (interactive()) {

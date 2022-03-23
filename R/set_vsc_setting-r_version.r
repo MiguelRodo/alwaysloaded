@@ -25,7 +25,7 @@
                            r_dir = "C:\\Program Files\\R") {
   r_version <- switch(as.character(r_v),
     "3" = "3.6.3",
-    "4" = "4.1.2",
+    "4" = "4.1.3",
     as.character(r_v)
   )
 

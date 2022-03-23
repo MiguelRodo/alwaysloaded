@@ -2,12 +2,15 @@
 #'
 #' @export
 run_std <- function(env = parent.frame(2)) {
-  alwaysloaded::add_options_vsc()
 
   # set repo to RStudio Package Manager
   options(
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
   )
+  
+  alwaysloaded::add_options_vsc()
+
+
 
   # change prompt style, don't show more than four digits
   # and don't show significance stars

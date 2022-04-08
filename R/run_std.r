@@ -5,9 +5,9 @@ run_std <- function(env = parent.frame(2)) {
 
   # set repo to RStudio Package Manager
   options(
-    repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest")
+    repos = c(REPO_NAME = "https://cloud.r-project.org")
   )
-  
+
   alwaysloaded::add_options_vsc()
 
 

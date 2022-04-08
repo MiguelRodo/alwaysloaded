@@ -1,7 +1,7 @@
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages(
     "devtools",
-    repos = "https://packagemanager.rstudio.com/all/latest"
+    repos = "https://cloud.r-project.org"
   )
 }
 try(devtools::load_all(), silent = TRUE)

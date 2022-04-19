@@ -8,6 +8,9 @@ add_options_vsc <- function() {
       if (!requireNamespace("jsonlite")) {
         install.packages("jsonlite")
       }
+      if (!requireNamespace("rlang")) {
+        install.packages("rlang")
+      }
       if (!requireNamespace("languageserver")) {
         install.packages("languageserver")
       }

@@ -34,6 +34,12 @@
                              create = TRUE,
                              ...) {
 
+  if ("renv:shims" %in% search()) {
+    install_pkg <- renv::install
+  } else {
+    install_pkg <- utils::install.packages
+  }
+
   # install required packages
   if (!requireNamespace("rjson", quietly = TRUE)) {
     rv <- utils::sessionInfo()$R.version$major
@@ -41,12 +47,13 @@
       rv,
       "3" = {
         if (!requireNamespace("versions", quietly = TRUE)) {
-          install.packages("versions")
+          install_pkg("versions")
         }
         versions::install.versions("rjson", versions = "0.2.20")
       },
       "4" = {
-        install.packages("rjson")
+
+        install_pkg("rjson")
       },
       stop(
         paste0("R major version of ", rv, " not supported"),
@@ -55,7 +62,7 @@
     )
   }
   if (!requireNamespace("here", quietly = TRUE)) {
-    install.packages("here", quiet = TRUE)
+    install_pkg("here", quiet = TRUE)
   }
 
   # load settings, or create them
@@ -83,7 +90,8 @@
       ind_x <- which(vapply(names(settings), function(y) {
         identical(y, x)
       }, logical(1)))
-      settings[[ind_x]] <- switch(as.character(identical(class(val_or_fn), "function")),
+      settings[[ind_x]] <- switch(
+        as.character(identical(class(val_or_fn), "function")),
         "FALSE" = val_or_fn,
         "TRUE" = val_or_fn(settings[[ind_x]], ...)
       )
@@ -133,16 +141,23 @@
 .unset_vsc_setting <- function(nm,
                                path_to_settings = here::here(".vscode/settings.json") # nolint
 ) {
+
   if (!file.exists(path_to_settings)) {
     return(invisible(TRUE))
   }
 
+  if ("renv:shims" %in% search()) {
+    install_pkg <- renv::install
+  } else {
+    install_pkg <- utils::install.packages
+  }
+
   # install required packages
   if (!requireNamespace("rjson", quietly = TRUE)) {
-    install.packages("rjson", quiet = TRUE)
+    install_pkg("rjson", quiet = TRUE)
   }
   if (!requireNamespace("here", quietly = TRUE)) {
-    install.packages("here", quiet = TRUE)
+    install_pkg("here", quiet = TRUE)
   }
 
   # load settings, or create them

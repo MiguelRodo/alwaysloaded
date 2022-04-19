@@ -1,8 +1,14 @@
 #' @export
 .dl <- function(...) {
+
+  if ("renv:shims" %in% search()) {
+    install_pkg <- renv::install
+  } else {
+    install_pkg <- utils::install.packages
+  }
   if (!requireNamespace("devtools", quietly = TRUE)) {
     message("installing devtools")
-    utils::install.packages("devtools")
+    install_pkg("devtools")
   }
   devtools::load_all(...)
   invisible(TRUE)
@@ -14,8 +20,13 @@
     if (!identical(as.character(x$V1), "#")) file.remove("NAMESPACE")
   }
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
     message("installing devtools")
-    utils::install.packages("devtools")
+    install_pkg("devtools")
   }
   devtools::document(...)
   invisible(TRUE)
@@ -23,8 +34,13 @@
 #' @export
 .dt <- function(...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
     message("installing devtools")
-    utils::install.packages("devtools")
+    install_pkg("devtools")
   }
   devtools::test(...)
   invisible(TRUE)
@@ -33,8 +49,13 @@
 #' @export
 .di <- function(upgrade = "never", ...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
     message("installing devtools")
-    utils::install.packages("devtools")
+    install_pkg("devtools")
   }
   .dd()
   devtools::install(upgrade = upgrade, ...)
@@ -44,8 +65,13 @@
 #' @export
 .dl <- function(...) {
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
     message("installing devtools")
-    utils::install.packages("devtools")
+    install_pkg("devtools")
   }
   devtools::load_all(...)
   invisible(TRUE)

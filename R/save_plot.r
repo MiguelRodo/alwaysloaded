@@ -16,8 +16,15 @@
 #'
 #' @return \code{invisible(filename)}.
 save_plot <- function(filename, plot, device = c("png", "pdf"), ...) {
+
   if (!requireNamespace("cowplot", quietly = TRUE)) {
-    install.packages("cowplot", quiet = TRUE)
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
+    message("installing cowplot")
+    install_pkg("cowplot")
   }
 
   filename_orig <- filename

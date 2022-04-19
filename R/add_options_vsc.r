@@ -4,24 +4,27 @@
 add_options_vsc <- function() {
   if (Sys.getenv("TERM_PROGRAM") == "vscode") {
 
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
+
     if (interactive()) {
-      if (!requireNamespace("jsonlite")) {
-        install.packages("jsonlite")
+      if (!requireNamespace("jsonlite", quietly = TRUE)) {
+        install_pkg("jsonlite")
       }
-      if (!requireNamespace("rlang")) {
-        install.packages("rlang")
+      if (!requireNamespace("rlang", quietly = TRUE)) {
+        install_pkg("rlang")
       }
-      if (!requireNamespace("languageserver")) {
-        install.packages("languageserver")
+      if (!requireNamespace("languageserver", quietly = TRUE)) {
+        install_pkg("languageserver")
       }
     }
 
     x <- utils::sessionInfo()
     version <- as.character(floor(as.numeric(x$R.version$major)))
-    if (as.numeric(version) >= 4) {
-      # interactive plots with {httpgd}
-      options(vsc.use_httpgd = TRUE)
-    }
+
 
     options(
       # activate RStudio Addins on command pallet
@@ -38,17 +41,19 @@ add_options_vsc <- function() {
     if (interactive()) {
       r_version <- utils::sessionInfo()$R.version$major
       if (as.numeric(r_version) >= 4) {
-        if (!"httpgd" %in% utils::installed.packages()[, "Package"]) {
-          try(install.packages("httpgd"), silent = TRUE)
-        } else {
-
+        if (!requireNamespace("httpgd", quietly = TRUE)) {
+          try(install_pkg("httpgd"), silent = TRUE)
         }
-        if ("httpgd" %in% utils::installed.packages()[, "Package"]) {
+        if (requireNamespace("httpgd", quietly = TRUE)) {
           options(vsc.plot = FALSE)
           options(device = function(...) {
             httpgd::hgd(silent = TRUE)
             .vsc.browser(httpgd::hgd_url(), viewer = "Beside")
           })
+          if (as.numeric(version) >= 4) {
+            # interactive plots with {httpgd}
+            options(vsc.use_httpgd = TRUE)
+          }
         }
       }
     }

@@ -29,7 +29,12 @@
                 inc_ext = FALSE,
                 add_missing = FALSE) {
   if (!requireNamespace("bookdown", quietly = TRUE)) {
-    utils::install.packages("bookdown")
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      install_pkg <- utils::install.packages
+    }
+    install_pkg("bookdown")
   }
   alwaysloaded:::adj_yaml(
     inc_ext = inc_ext,

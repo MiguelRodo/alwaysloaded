@@ -3,6 +3,12 @@
 #' @export
 run_std <- function(env = parent.frame(2)) {
 
+  if ("renv:shims" %in% search()) {
+    install_pkg <- renv::install
+  } else {
+    install_pkg <- utils::install.packages
+  }
+
   # set repo to RStudio Package Manager
   options(
     repos = c(REPO_NAME = "https://cloud.r-project.org")
@@ -34,16 +40,10 @@ run_std <- function(env = parent.frame(2)) {
   library("graphics")
   library("stats")
   if (interactive()) {
-    # if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    #  message("installing ggplot2")
-    #  utils::install.packages("ggplot2")
-    # }
-    # suppressMessages(suppressWarnings(invisible(library(ggplot2))))
-
     if (floor(as.numeric(utils::sessionInfo()$R.version$major)) <= 3) {
       if (!requireNamespace("magrittr", quietly = TRUE)) {
         message("installing magrittr")
-        utils::install.packages("magrittr")
+        install_pkg("magrittr")
       }
 
       try(assign("%>%",

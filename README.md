@@ -17,7 +17,8 @@ You can install `alwaysloaded` from [GitHub](https://www.github.com)
 with:
 
 ``` r
-devtools::install_github("MiguelRodo/alwaysloaded")
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("MiguelRodo/alwaysloaded")
 ```
 
 ## Usage
@@ -31,33 +32,28 @@ unnecessary issues if `alwaysloaded` isn’t installed:
 
 ``` r
 if (interactive()) {
-  pkg_vec_installed <- utils::installed.packages()[, "Package"]
-  if (!"alwaysloaded" %in% pkg_vec_installed) {
-    if (!"remotes" %in% pkg_vec_installed) {
-      try(utils::install.packages("remotes"))
+  if (!requireNamespace("alwaysloaded", quietly = TRUE)) {
+    if ("renv:shims" %in% search()) {
+      install_pkg <- renv::install
+    } else {
+      if (!requireNamespace("remotes", quietly = TRUE)) {
+        try(utils::install.packages("remotes"))
+      }
+      install_pkg <- remotes::install_github
     }
-    if ("remotes" %in% utils::installed.packages()[, "Package"]) {
-      try(remotes::install_github("MiguelRodo/alwaysloaded"))
-      try(alwaysloaded::run_std())
-      try(library(alwaysloaded))
-    }
-  } else {
-    try(alwaysloaded::run_std())
-    try(library(alwaysloaded))
-  }
+    install_pkg("MiguelRodo/alwaysloaded")
+    rm("install_pkg")
+  } 
+  try(alwaysloaded::run_std())
+  try(library(alwaysloaded))
 }
 ```
 
 ### `run_std()`
 
-#### Attached CRAN package
-
-It attaches `ggplot2`(invisibly).
-
 #### R options
 
--   Sets the CRAN repository to
-    `https://packagemanager.rstudio.com/all/latest`.
+-   Sets the CRAN repository to `https://cloud.r-project.org`.
 -   It sets `stringsAsFactors = FALSE`,
 -   If the IDE is VS Code, then see `alwaysloaded::add_options_vsc` for
     the (many) options set there.
@@ -71,3 +67,4 @@ It attaches `ggplot2`(invisibly).
     -   `.kb` and `.ob` to knit and open `bookdown` output.
     -   `.od` to open a File Explorer pane at a specified directory.
     -   `.rv` to print the current R version.
+    -   And several others.

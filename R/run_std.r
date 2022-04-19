@@ -53,7 +53,5 @@ run_std <- function(env = parent.frame(2)) {
     }
   }
 
-  suppressWarnings(rm("pkg_vec_installed", envir = .GlobalEnv))
-
   invisible(TRUE)
 }

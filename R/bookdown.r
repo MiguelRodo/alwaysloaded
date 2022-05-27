@@ -207,31 +207,12 @@ adj_yaml <- function(inc_ext = FALSE, add_missing) {
 #' @title Open book
 #'
 #' @export
-.ob <- function(chapter = NULL, exact = FALSE, ind = 1) {
-  if (!is.null(chapter)) {
-    if (!exact) {
-      chapter <- stringr::str_trim(chapter)
-      chapter <- stringr::str_replace_all(
-        chapter,
-        "\\s|_",
-        "-"
-      )
-      html_vec <- list.files(file.path(here::here(), "_book"),
-        pattern = "html$"
-      )
-      html_vec <- html_vec[stringr::str_detect(html_vec, chapter)]
-      html <- html_vec[ind]
-    } else {
-      if (!stringr::str_sub(chapter, end = -4) == "html") {
-        html <- paste0(chapter, ".html")
-      } else {
-        html <- chapter
-      }
-    }
-  } else {
-    html <- "index.html"
-  }
-  path_book <- file.path(here::here(), "_book", html)
+.ob <- function(exact = FALSE, ind = 1) {
+  bd_settings_list <- yaml::read_yaml(here::here("_bookdown.yml"))
+
+  path_book <- file.path(
+    here::here(), bd_settings_list$output_dir, "index.html"
+  )
   utils::browseURL(path_book)
   invisible(path_book)
 }
